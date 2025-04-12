@@ -30,4 +30,53 @@ export default class Tree {
       
         return root;
       }
+
+      insert(value, node = this.root) {
+        if (!node) return new Node(value);
+      
+        if (value === node.value) {
+          return node; // No duplicates
+        } else if (value < node.value) {
+          node.left = this.insert(value, node.left);
+        } else {
+          node.right = this.insert(value, node.right);
+        }
+      
+        return node;
+      }
+
+      delete(value, node = this.root) {
+        if (!node) return null;
+      
+        if (value < node.value) {
+          node.left = this.delete(value, node.left);
+        } else if (value > node.value) {
+          node.right = this.delete(value, node.right);
+        } else {
+          // Case 1: No children
+          if (!node.left && !node.right) {
+            return null;
+          }
+      
+          // Case 2: One child
+          if (!node.left) return node.right;
+          if (!node.right) return node.left;
+      
+          // Case 3: Two children
+          let successor = this.findMin(node.right);
+          node.value = successor.value;
+          node.right = this.delete(successor.value, node.right);
+        }
+      
+        return node;
+      }
+      
+      findMin(node) {
+        while (node.left !== null) {
+          node = node.left;
+        }
+        return node;
+      }
+      
+      
 }  
