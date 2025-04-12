@@ -77,6 +77,67 @@ export default class Tree {
         }
         return node;
       }
+
+      find(value, node = this.root) {
+        if (!node) return null;
       
+        if (value === node.value) return node;
+      
+        if (value < node.value) {
+          return this.find(value, node.left);
+        } else {
+          return this.find(value, node.right);
+        }
+      }
+
+      levelOrder(callback) {
+        const queue = [this.root];
+        const result = [];
+      
+        while (queue.length > 0) {
+          const node = queue.shift();
+      
+          if (callback) {
+            callback(node);
+          } else {
+            result.push(node.value);
+          }
+      
+          if (node.left) queue.push(node.left);
+          if (node.right) queue.push(node.right);
+        }
+      
+        return callback ? undefined : result;
+      }
+
+      inOrder(callback, node = this.root, result = []) {
+        if (!node) return;
+      
+        this.inOrder(callback, node.left, result);
+        callback ? callback(node) : result.push(node.value);
+        this.inOrder(callback, node.right, result);
+      
+        if (!callback) return result;
+      }
+
+      preOrder(callback, node = this.root, result = []) {
+        if (!node) return;
+      
+        callback ? callback(node) : result.push(node.value);
+        this.preOrder(callback, node.left, result);
+        this.preOrder(callback, node.right, result);
+      
+        if (!callback) return result;
+      }
+
+      postOrder(callback, node = this.root, result = []) {
+        if (!node) return;
+      
+        this.postOrder(callback, node.left, result);
+        this.postOrder(callback, node.right, result);
+        callback ? callback(node) : result.push(node.value);
+      
+        if (!callback) return result;
+      } 
       
 }  

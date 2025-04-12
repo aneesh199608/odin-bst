@@ -9,8 +9,18 @@ bst.insert(0);
 bst.insert(8); //this is to check duplicated value insertion
 bst.prettyPrint();
 
-bst.delete(7); // Try deleting a node with two children
-bst.delete(0); // Leaf node
-bst.delete(8); // One-child node
-bst.prettyPrint();
+bst.delete(7); 
+bst.delete(0); 
+bst.delete(8);
+bst.prettyPrint(); 
+
+console.log('Find 5:', bst.find(5));   
+console.log('Find 20:', bst.find(20)); 
+
+console.log('Level Order:', bst.levelOrder());     
+console.log('InOrder:', bst.inOrder());          
+console.log('PreOrder:', bst.preOrder());
+console.log('PostOrder:', bst.postOrder());
+
+
 
