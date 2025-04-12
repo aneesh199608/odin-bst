@@ -1,54 +1,44 @@
 import Tree from './tree.js';
 
-const arr = [5, 2, 8, 1, 7, 10, 3, 6];
-const bst = new Tree(arr);
+// Helper: Generate an array of random numbers < 100
+function generateRandomArray(size = 15, max = 100) {
+  return Array.from({ length: size }, () => Math.floor(Math.random() * max));
+}
+
+// Step 1: Create a BST from random numbers
+const randomArray = generateRandomArray();
+const bst = new Tree(randomArray);
+console.log('Initial tree:');
 bst.prettyPrint();
 
-bst.insert(9);
-bst.insert(0);
-bst.insert(8); //this is to check duplicated value insertion
+// Step 2: Check if balanced
+console.log('Is tree balanced?', bst.isBalanced());
+
+// Step 3: Print traversals
+console.log('Level Order:', bst.levelOrder());
+console.log('Pre Order:', bst.preOrder());
+console.log('In Order:', bst.inOrder());
+console.log('Post Order:', bst.postOrder());
+
+// Step 4: Unbalance the tree with numbers > 100
+bst.insert(101);
+bst.insert(150);
+bst.insert(200);
+bst.insert(125);
+bst.insert(175);
+
+console.log('\nAfter inserting nodes > 100:');
 bst.prettyPrint();
+console.log('Is tree balanced?', bst.isBalanced());
 
-bst.delete(7); 
-bst.delete(0); 
-bst.delete(8);
-bst.prettyPrint(); 
-
-console.log('Find 5:', bst.find(5));   
-console.log('Find 20:', bst.find(20)); 
-
-console.log('Level Order:', bst.levelOrder());     
-console.log('InOrder:', bst.inOrder());          
-console.log('PreOrder:', bst.preOrder());
-console.log('PostOrder:', bst.postOrder());
-
-console.log('Height of root:', bst.height()); // Full tree height
-const node5 = bst.find(5);
-console.log('Height of node 5:', bst.height(node5));
-
-const node1 = bst.find(6);
-console.log('Depth of node 1:', bst.depth(node1));
-
-const node10 = bst.find(10);
-console.log('Depth of node 10:', bst.depth(node10));
-
-console.log('Is tree balanced?', bst.isBalanced()); // true or false
-
-bst.insert(11);
-bst.insert(12);
-bst.insert(13);
-bst.insert(14);
-
-console.log('Is balanced (before)?', bst.isBalanced()); // false
-bst.prettyPrint();
-
+// Step 5: Rebalance the tree
 bst.rebalance();
-
-console.log('Is balanced (after)?', bst.isBalanced()); // true
+console.log('\nAfter rebalancing:');
 bst.prettyPrint();
+console.log('Is tree balanced?', bst.isBalanced());
 
-
-
-
-
-
+// Step 6: Final traversals
+console.log('Level Order:', bst.levelOrder());
+console.log('Pre Order:', bst.preOrder());
+console.log('In Order:', bst.inOrder());
+console.log('Post Order:', bst.postOrder());
